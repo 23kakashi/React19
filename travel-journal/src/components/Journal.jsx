@@ -8,7 +8,7 @@ export default function Journal(props) {
         <div>
           <img
             src={img.src}
-            alt={`${title} image`}
+            alt={img.alt}
             className="location-image"
           />
         </div>
