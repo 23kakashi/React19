@@ -1,5 +1,5 @@
 import "./main.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Recipe from "./Recipe";
 import Form from "./Form";
 import IngredientList from "./IngredientList";
@@ -7,7 +7,8 @@ import { getRecipeFromMistral } from "../ai";
 
 export default function Main() {
   const [ingredients, setIngredients] = useState(["apple", "banana", "sugar"]);
-  const [recipe, setRecipe] = useState({ id: 1 });
+  const [recipe, setRecipe] = useState("");
+  const recipeSection = useRef(null);
 
   // Old way
   // const handleSubmit = (event) => {
@@ -17,6 +18,15 @@ export default function Main() {
   // setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
   // event.currentTarget.reset();
   // };
+
+  useEffect(() => {
+    if (recipe && recipeSection.current) {
+      recipeSection.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [recipe]);
 
   //In React 19
   const addIngredient = (formData) => {
@@ -36,7 +46,11 @@ export default function Main() {
       {/* <form className="add-ingredient-form" onSubmit={handleSubmit}> */}
       <Form onAddIngredient={addIngredient} />
       {ingredients.length > 0 ? (
-        <IngredientList ingredients={ingredients} getRecipe={getRecipe} />
+        <IngredientList
+          ingredients={ingredients}
+          getRecipe={getRecipe}
+          ref={recipeSection}
+        />
       ) : null}
       {recipe.content && <Recipe recipe={recipe} />}
     </main>

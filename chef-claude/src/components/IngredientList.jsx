@@ -1,4 +1,5 @@
-export default function IngredientList(props) {  
+/* eslint-disable react-hooks/refs */
+export default function IngredientList(props) {
   return (
     <section>
       <h2>Ingredient on hand:</h2>
@@ -10,7 +11,7 @@ export default function IngredientList(props) {
       </ul>
 
       <div className="call-to-action">
-        <div>
+        <div ref={props.ref}>
           <h3>Ready for a recipe?</h3>
           <p>Generate a recipe from your list of ingredients.</p>
         </div>
