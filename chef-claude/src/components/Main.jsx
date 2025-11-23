@@ -2,10 +2,12 @@ import "./main.css";
 import { useState } from "react";
 import Recipe from "./Recipe";
 import Form from "./Form";
+import IngredientList from "./IngredientList";
+import { getRecipeFromMistral } from "../ai";
 
 export default function Main() {
-  const [ingredients, setIngredients] = useState([]);
-  const [recipeShown, setRecipeShown] = useState(false);
+  const [ingredients, setIngredients] = useState(["apple", "banana", "sugar"]);
+  const [recipe, setRecipe] = useState({ id: 1 });
 
   // Old way
   // const handleSubmit = (event) => {
@@ -22,8 +24,11 @@ export default function Main() {
     setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
   };
 
-  const getRecipe = () => {
-    setRecipeShown((prev) => !prev);
+  const getRecipe = async () => {
+    if (ingredients.length > 0) {
+      const data = await getRecipeFromMistral(ingredients);
+      setRecipe(data);
+    }
   };
 
   return (
@@ -31,31 +36,9 @@ export default function Main() {
       {/* <form className="add-ingredient-form" onSubmit={handleSubmit}> */}
       <Form onAddIngredient={addIngredient} />
       {ingredients.length > 0 ? (
-        <section>
-          <h2>Ingredient on hand:</h2>
-
-          <ul className="ingredient-list-item">
-            {ingredients.map((ingredient) => (
-              <li key={ingredient}>{ingredient}</li>
-            ))}
-          </ul>
-
-          <div className="call-to-action">
-            <div>
-              <h3>Ready for a recipe?</h3>
-              <p>Generate a recipe from your list of ingredients.</p>
-            </div>
-            <div className="recipe-button">
-              <button onClick={getRecipe}>Get a recipe</button>
-            </div>
-          </div>
-        </section>
+        <IngredientList ingredients={ingredients} getRecipe={getRecipe} />
       ) : null}
-      {recipeShown && (
-        <section>
-          <Recipe />
-        </section>
-      )}
+      {recipe.content && <Recipe recipe={recipe} />}
     </main>
   );
 }

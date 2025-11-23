@@ -6,6 +6,8 @@ export default function Form(props) {
         name="ingredient"
         placeholder="e.g. oregano"
         aria-label="add ingredient"
+        required
+        minLength={3}
       />
       <button>Add ingredient</button>
     </form>
