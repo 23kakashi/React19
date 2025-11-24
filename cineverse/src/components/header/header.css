@@ -1,0 +1,79 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  height: 100px;
+  margin: 0 25px;
+}
+
+.header-redirection {
+  display: flex;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.logo > a > img {
+  width: 50px;
+  transition: width 0.15s ease-in;
+}
+
+.logo > a > img:hover {
+  width: 55px;
+}
+
+.header-redirection > ul {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header-redirection > ul > a {
+  all: unset;
+  cursor: pointer;
+}
+.header-redirection > ul > a:hover {
+  color: rgb(213, 159, 159);
+}
+
+.auth {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: whitesmoke;
+}
+
+.auth > li {
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.auth > li:first-child {
+  list-style-type: none;
+  text-decoration: none;
+  background-color: rgb(23, 69, 194);
+}
+
+.auth > li:first-child:hover {
+  color: rgb(23, 69, 194);
+  background-color: white;
+  border: 1px solid rgb(23, 69, 194);
+  padding: 10px 9px;
+}
+
+.auth > li:last-child {
+  list-style-type: none;
+  background-color: rgb(254, 48, 48);
+}
+
+.auth > li:last-child:hover {
+  color: rgb(254, 48, 48);
+  background-color: white;
+  border: 1px solid rgb(254, 48, 48);
+  padding: 10px 9px;
+}
